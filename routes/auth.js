@@ -3,6 +3,8 @@ const router = express.Router();
 const { check, validationResult } = require('express-validator')
 const bcrypt = require('bcryptjs')
 const auth = require('../middleware/auth')
+const jwt = require('jsonwebtoken')
+const config = require('config')
 
 const User = require('../models/User');
 const { selectFields } = require('express-validator/src/select-fields');
@@ -34,7 +36,6 @@ router.post('/', [
         return res.status(400).json({errors: errors.array()});
     }
     const { email, password } = req.body;
-
     try {
         let user = await User.findOne({ email })
 
@@ -60,7 +61,7 @@ router.post('/', [
         console.log(error.message);
         res.status(500).send('Server error')
     }
-    res.send('Log in user')
+    res.json({token})
 })
 
 module.exports = router;
