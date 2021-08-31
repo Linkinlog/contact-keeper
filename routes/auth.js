@@ -7,7 +7,6 @@ const jwt = require("jsonwebtoken");
 const config = require("config");
 
 const User = require("../models/User");
-const { selectFields } = require("express-validator/src/select-fields");
 
 // @route GET api/auth
 // @desc Get logged in user
