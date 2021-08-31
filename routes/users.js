@@ -7,7 +7,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 // @route POST /api/users
-// @desc Register a fkin user
+// @desc Register a new user
 // @access Public
 router.post("/", [check("name", "Please enter a valid name").not().isEmpty(), check("email", "Please enter a valid email").isEmail(), check("password", "Please enter a password with 6 or more characters").isLength({ min: 6 })], async (req, res) => {
 	const errors = validationResult(req);
