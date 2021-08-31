@@ -11,6 +11,7 @@ module.exports = function(req, res, next) {
     }
 
     try {
+        // Decode jsonwebtoken and add it as the user to the request
         const decoded = jwt.verify(token, config.get('jwtSecret'))
         req.user = decoded.user;
         next();
