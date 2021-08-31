@@ -23,55 +23,55 @@ router.get("/", auth, async (req, res) => {
 // @access Private
 router.post("/", [auth, [check("name", "Please enter a valid name").not().isEmpty()]], async (req, res) => {
 	const errors = validationResult(req);
-    if(!errors.isEmpty()){
-        return res.status(400).json({errors: errors.array()});
-    }
+	if (!errors.isEmpty()) {
+		return res.status(400).json({ errors: errors.array() });
+	}
 	try {
-		contact = new Contact({...req.body, user: req.user.id});
+		contact = new Contact({ ...req.body, user: req.user.id });
 		await contact.save();
 	} catch (error) {
-		console.error(error)
-		res.status(500).send('Server error')
+		console.error(error);
+		res.status(500).send("Server error");
 	}
-	res.json(contact)
+	res.json(contact);
 });
 
 // @route PUT api/contacts/:id
 // @desc Update Contact
 // @access Private
 router.put("/:id", [auth, [check("name", "Please enter a valid name").not().isEmpty()]], async (req, res) => {
-	const {id} = req.params
+	const { id } = req.params;
 	try {
-		const contact = await Contact.findById(id)
-		if(!contact){
-			return res.status(404).json({ msg: 'Contact not found' })
+		const contact = await Contact.findById(id);
+		if (!contact) {
+			return res.status(404).json({ msg: "Contact not found" });
 		}
-		if(contact.user.toString() !== req.user.id){
-			return res.status(401).json({ msg: 'Not authorized'})
+		if (contact.user.toString() !== req.user.id) {
+			return res.status(401).json({ msg: "Not authorized" });
 		}
-		await Contact.findByIdAndUpdate(id, {...req.body}, {new:true})
+		await Contact.findByIdAndUpdate(id, { ...req.body }, { new: true });
 	} catch (error) {
-		console.error(error)
-		res.status(500).send('Server error')
+		console.error(error);
+		res.status(500).send("Server error");
 	}
-	res.json(contact)
+	res.json(contact);
 });
 
 // @route DELETE api/contacts/:id
 // @desc Delete Contact
 // @access Private
 router.delete("/:id", [auth, [check("name", "Please enter a valid name").not().isEmpty()]], async (req, res) => {
-	const {id} = req.params
+	const { id } = req.params;
 	try {
 		Contact.findByIdAndRemove(id, (error) => {
-			if(error){
-				console.error(error)
+			if (error) {
+				console.error(error);
 			}
-			return res.json({msg: 'Deleted'})
-		})
+			return res.json({ msg: "Deleted" });
+		});
 	} catch (error) {
-		console.error(error)
-		return res.status(500).send('Server error')
+		console.error(error);
+		return res.status(500).send("Server error");
 	}
 });
 
