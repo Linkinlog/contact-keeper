@@ -1,3 +1,6 @@
-.env
+.env*
 node_modules
 default.json
+/client/build
+*debug.log*
+.DS_Store
