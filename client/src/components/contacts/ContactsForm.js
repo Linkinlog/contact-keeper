@@ -1,9 +1,23 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import ContactContext from '../../context/contact/contactContext';
 
 export const ContactsForm = () => {
 	const contactContext = useContext(ContactContext);
-	const { addContact } = contactContext;
+	const { addContact, current, clearCurrent, updateContact } = contactContext;
+
+	useEffect(() => {
+		if (current !== null) {
+			setContact(current);
+		} else {
+			setContact({
+				name: '',
+				email: '',
+				phone: '',
+				type: '',
+			});
+		}
+	}, [contactContext, current]);
+
 	const [contact, setContact] = useState({
 		name: '',
 		email: '',
@@ -17,7 +31,11 @@ export const ContactsForm = () => {
 
 	const onSubmit = (e) => {
 		e.preventDefault();
-		addContact(contact);
+		if (current === null) {
+			addContact(contact);
+		}else {
+			updateContact(contact);
+		}
 		setContact({
 			name: '',
 			email: '',
@@ -29,20 +47,20 @@ export const ContactsForm = () => {
 	return (
 		<div className='addContact'>
 			<form className='hotBorder rounded-3 p-4' onSubmit={onSubmit}>
-				<h2 className='text-primary text-center'>Add Contact</h2>
-				<label class='form-label' htmlFor='name'>
+				<h2 className='text-primary text-center'>{current ? 'Edit Contact' : 'Add Contact'}</h2>
+				<label className='form-label' htmlFor='name'>
 					Name :
 				</label>
-				<input type='text' class='form-control mb-3' placeholder='Name' name='name' id='name' value={name} onChange={onChange} />
-				<label class='form-label' htmlFor='email'>
+				<input type='text' className='form-control mb-3' placeholder='Name' name='name' id='name' value={name} onChange={onChange} />
+				<label className='form-label' htmlFor='email'>
 					E-Mail :
 				</label>
-				<input type='email' id='email' class='form-control mb-3' placeholder='Email' name='email' value={email} onChange={onChange} />
-				<label class='form-label' htmlFor='phone'>
+				<input type='email' id='email' className='form-control mb-3' placeholder='Email' name='email' value={email} onChange={onChange} />
+				<label className='form-label' htmlFor='phone'>
 					Phone :
 				</label>
-				<input type='text' class='form-control mb-3' placeholder='Phone' id='phone' name='phone' value={phone} onChange={onChange} />
-				<label class='form-label' htmlFor='type'>
+				<input type='text' className='form-control mb-3' placeholder='Phone' id='phone' name='phone' value={phone} onChange={onChange} />
+				<label className='form-label' htmlFor='type'>
 					Type :
 				</label>
 				<br />
@@ -50,8 +68,15 @@ export const ContactsForm = () => {
 				<label htmlFor='personal'>Personal </label>
 				<input type='radio' name='type' id='professional' value='professional' onChange={onChange} checked={type === 'professional'} />
 				<label htmlFor='professional'>Professional </label>
-				<div className='text-center mt-2'>
-					<input type='submit' value='Add Contact' className='btn btn-info' />
+				<div className='text-center m-2 d-grid gap-2 d-md-block'>
+					<input type='submit' value={current ? 'Update Contact' : 'Add Contact'} className='btn btn-info btn-block' />
+					{current && (
+						<div className='mt-2'>
+							<button onClick={clearCurrent} className='btn btn-info btn-block'>
+								Clear
+							</button>
+						</div>
+					)}
 				</div>
 			</form>
 		</div>
