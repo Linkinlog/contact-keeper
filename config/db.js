@@ -10,7 +10,7 @@ const connectDB = async () => {
             useFindAndModify: false,
             useUnifiedTopology: true
         })
-        console.log('MongoDB connectered negras');
+        console.log('MongoDB connectered');
 
     } catch (error) {
         console.error(e.message);
