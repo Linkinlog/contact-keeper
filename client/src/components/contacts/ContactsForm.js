@@ -4,6 +4,13 @@ import ContactContext from '../../context/contact/contactContext';
 export const ContactsForm = () => {
 	const contactContext = useContext(ContactContext);
 	const { addContact, current, clearCurrent, updateContact } = contactContext;
+	const [contact, setContact] = useState({
+		name: '',
+		email: '',
+		phone: '',
+		type: '',
+	});
+
 
 	useEffect(() => {
 		if (current !== null) {
@@ -17,13 +24,6 @@ export const ContactsForm = () => {
 			});
 		}
 	}, [contactContext, current]);
-
-	const [contact, setContact] = useState({
-		name: '',
-		email: '',
-		phone: '',
-		type: '',
-	});
 
 	const { name, email, phone, type } = contact;
 
@@ -43,6 +43,10 @@ export const ContactsForm = () => {
 			type: '',
 		});
 	};
+
+	const clearAll = () => {
+		clearCurrent();
+	}
 
 	return (
 		<div className='addContact'>
@@ -72,7 +76,7 @@ export const ContactsForm = () => {
 					<input type='submit' value={current ? 'Update Contact' : 'Add Contact'} className='btn btn-info btn-block' />
 					{current && (
 						<div className='mt-2'>
-							<button onClick={clearCurrent} className='btn btn-info btn-block'>
+							<button onClick={clearAll} className='btn btn-info btn-block'>
 								Clear
 							</button>
 						</div>
