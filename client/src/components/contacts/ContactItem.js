@@ -8,7 +8,7 @@ export const ContactItem = ({ contact }) => {
 	const { id, name, email, phone, type } = contact;
 	return (
 		<div>
-			<div className='card rounded-3 contact hotBorder mt-5' style={{width:'18rem'}}>
+			<div className='card rounded-3 contact hotBorder mt-5'>
 				<div className='card-body'>
 					<h5 className='card-title'>
 						{name} <span style={{float : 'right'}}  className={'badge ' + (type === 'professional' ? 'bg-secondary' : 'bg-primary')}>{type.charAt(0).toUpperCase() + type.slice(1)}</span>
@@ -21,7 +21,7 @@ export const ContactItem = ({ contact }) => {
 							<i  className="fa fa-phone" aria-hidden="true" />{' '}{phone}
 						</li>)}
 					</ul>
-					<div className="d-grid gap- d-md-block">
+					<div className="d-grid text-center d-md-block">
 						<button onClick={() => setCurrent(contact)} className="btn btn-dark btn-sm">Edit</button>
 						<button onClick={() => deleteContact(id)} className="btn btn-danger btn-sm ms-2">Delete</button>
 					</div>
