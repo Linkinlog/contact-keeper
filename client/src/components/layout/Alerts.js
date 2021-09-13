@@ -8,7 +8,7 @@ export const Alerts = () => {
 	
 	return (
 		alerts.length > 0 && alerts.map(alert => (
-			<div key={alert.id} className={`alert alert-${alert.type}`} >
+			<div key={alert.id} className={`alert alert-${alert.type} m-4`} >
 				<i className="fa fa-info-circle" /> {alert.msg}
 			</div>
 		))
