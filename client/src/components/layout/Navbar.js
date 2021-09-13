@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import AuthContext from '../../context/auth/authContext';
 
 export const Navbar = ({ title, icon }) => {
+	const authContext = useContext(AuthContext)
+	const {isAuthenticated} = authContext
 	return (
 		<nav  className='navbar navbar-expand-md navbar-dark bg-primary'>
 			<div  className='container-fluid'>
@@ -25,6 +28,16 @@ export const Navbar = ({ title, icon }) => {
 							</Link>
 						</li>
 					</ul>
+					{!isAuthenticated &&
+										<ul className="navbar-nav ms-auto">
+										<li className="nav-item">
+											<Link className="nav-link" to='/login'>Login</Link>
+										</li>
+										<li className="nav-item">
+											<Link className="nav-link" to='/register'>Register</Link>
+										</li>
+									</ul>
+					}
 				</div>
 			</div>
 		</nav>
