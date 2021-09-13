@@ -14,6 +14,7 @@ export const Register = () => {
 			setAlert(error, 'danger')
 			clearErrors();
 		}
+		// eslint-disable-next-line
 	}, [error])
 
 	const [user, setUser] = useState({
@@ -45,7 +46,6 @@ export const Register = () => {
 				email,
 				password
 			})
-			setAlert('Register Successful', 'info')
 		}
 	};
 
