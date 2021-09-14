@@ -11,7 +11,6 @@ export const ContactsForm = () => {
 		type: '',
 	});
 
-
 	useEffect(() => {
 		if (current !== null) {
 			setContact(current);
@@ -33,7 +32,7 @@ export const ContactsForm = () => {
 		e.preventDefault();
 		if (current === null) {
 			addContact(contact);
-		}else {
+		} else {
 			updateContact(contact);
 		}
 		setContact({
@@ -46,7 +45,7 @@ export const ContactsForm = () => {
 
 	const clearAll = () => {
 		clearCurrent();
-	}
+	};
 
 	return (
 		<div className='addContact'>
@@ -68,10 +67,19 @@ export const ContactsForm = () => {
 					Type :
 				</label>
 				<br />
-				<input type='radio' name='type' id='personal' value='personal' onChange={onChange} checked={type === 'personal'} />
-				<label htmlFor='personal'>Personal </label>
-				<input type='radio' name='type' id='professional' value='professional' onChange={onChange} checked={type === 'professional'} />
-				<label htmlFor='professional'>Professional </label>
+				<div class='form-check'>
+					<input class='form-check-input' type='radio' value='personal' name='type' id='personal' onChange={onChange} checked={type === 'personal'} />
+					<label class='form-check-label' for='personal'>
+						Personal
+					</label>
+				</div>
+
+				<div class='form-check'>
+					<input class='form-check-input' type='radio' value='professional' name='type' id='professional' onChange={onChange} checked={type === 'professional'} />
+					<label class='form-check-label' for='professional'>
+						Professional
+					</label>
+				</div>
 				<div className='text-center m-2 d-grid gap-2 d-md-block'>
 					<input type='submit' value={current ? 'Update Contact' : 'Add Contact'} className='btn btn-info btn-block' />
 					{current && (
