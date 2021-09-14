@@ -2,13 +2,14 @@ import React, { useState, useContext, useEffect } from 'react';
 import AlertContext from '../../context/alert/alertContext';
 import AuthContext from '../../context/auth/authContext';
 
-export const Register = () => {
+export const Register = (props) => {
 	const alertContext = useContext(AlertContext);
 	const authContext = useContext(AuthContext);
-	const { register, error, clearErrors } = authContext;
+	const { register, error, clearErrors, isAuthenticated } = authContext;
 	const { setAlert } = alertContext;
 
 	useEffect(() => {
+		if(isAuthenticated) props.history.push('/')
 		// todo see if this is ever needed or if we can just loop all errors
 		// if (error === 'User already exists') {
 		// 	setAlert(error, 'danger');
@@ -19,7 +20,7 @@ export const Register = () => {
 			clearErrors();
 		}
 		// eslint-disable-next-line
-	}, [error]);
+	}, [error, isAuthenticated, props.history]);
 
 	const [user, setUser] = useState({
 		name: '',
