@@ -67,16 +67,16 @@ export const ContactsForm = () => {
 					Type :
 				</label>
 				<br />
-				<div class='form-check'>
-					<input class='form-check-input' type='radio' value='personal' name='type' id='personal' onChange={onChange} checked={type === 'personal'} />
-					<label class='form-check-label' for='personal'>
+				<div className='form-check'>
+					<input className='form-check-input' type='radio' value='personal' name='type' id='personal' onChange={onChange} checked={type === 'personal'} />
+					<label className='form-check-label' htmlFor='personal'>
 						Personal
 					</label>
 				</div>
 
-				<div class='form-check'>
-					<input class='form-check-input' type='radio' value='professional' name='type' id='professional' onChange={onChange} checked={type === 'professional'} />
-					<label class='form-check-label' for='professional'>
+				<div className='form-check'>
+					<input className='form-check-input' type='radio' value='professional' name='type' id='professional' onChange={onChange} checked={type === 'professional'} />
+					<label className='form-check-label' htmlFor='professional'>
 						Professional
 					</label>
 				</div>
