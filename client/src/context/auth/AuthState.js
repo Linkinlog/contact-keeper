@@ -2,6 +2,7 @@ import React, { useReducer } from 'react';
 import AuthContext from './authContext';
 import authReducer from './authReducer';
 import axios from 'axios';
+import { setAuthToken } from '../../utils/setAuthToken';
 // eslint-disable-next-line
 import { REGISTER_SUCCESS, REGISTER_FAIL, USER_LOADED, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, CLEAR_ERRORS } from '../types';
 
@@ -18,8 +19,9 @@ const AuthState = (props) => {
 
 	// Load user
 	const loadUser = async () => {
-		//todo load token into global headers
-
+		if(localStorage.token){
+			setAuthToken(localStorage.token)
+		}
 		try {
 			const res = await axios.get('/api/auth');
 			dispatch({
