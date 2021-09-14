@@ -45,10 +45,12 @@ const AuthState = (props) => {
 				payload: res.data,
 			});
 		} catch (error) {
-			console.log(error.response);
 			if (error.response.data.errors) {
 				for (let message of error.response.data.errors) {
-					alert(message.msg);
+					dispatch({
+						type: REGISTER_FAIL,
+						payload: message.msg
+					})
 				}
 			}
 			dispatch({

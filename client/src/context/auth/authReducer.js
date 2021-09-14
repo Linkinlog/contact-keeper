@@ -1,33 +1,34 @@
+// eslint-disable-next-line
 import { REGISTER_SUCCESS, REGISTER_FAIL, USER_LOADED, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, CLEAR_ERRORS } from '../types';
 
 // eslint-disable-next-line
-export default ( state, action ) => {
-	switch(action.type){
+export default (state, action) => {
+	switch (action.type) {
 		case REGISTER_SUCCESS:
-			localStorage.setItem('token', action.payload.token)
-			return{
+			localStorage.setItem('token', action.payload.token);
+			return {
 				...state,
 				...action.payload,
 				isAuthenticated: true,
-				loading: false
-			}
+				loading: false,
+			};
 		case REGISTER_FAIL:
-			localStorage.removeItem('token')
+			localStorage.removeItem('token');
 			return {
 				...state,
 				token: null,
 				isAuthenticated: false,
 				loading: false,
 				user: null,
-				error: action.payload
-			}
-			case CLEAR_ERRORS:
-				return {
-					...state,
-					error: null
-				}
-		
+				error: action.payload,
+			};
+		case CLEAR_ERRORS:
+			return {
+				...state,
+				error: null,
+			};
+
 		default:
-			return state
+			return state;
 	}
-}
+};
