@@ -60,7 +60,6 @@ router.post("/", [check("email", "Please include a valid email").isEmail(), chec
 		console.log(error.message);
 		res.status(500).send("Server error");
 	}
-	res.json({ token });
 });
 
 module.exports = router;
