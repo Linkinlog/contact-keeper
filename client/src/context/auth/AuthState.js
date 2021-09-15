@@ -3,7 +3,6 @@ import AuthContext from './authContext';
 import authReducer from './authReducer';
 import axios from 'axios';
 import { setAuthToken } from '../../utils/setAuthToken';
-// eslint-disable-next-line
 import { REGISTER_SUCCESS, REGISTER_FAIL, USER_LOADED, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, CLEAR_ERRORS } from '../types';
 
 const AuthState = (props) => {
@@ -19,15 +18,14 @@ const AuthState = (props) => {
 
 	// Load user
 	const loadUser = async () => {
-		if(localStorage.token){
-			setAuthToken(localStorage.token)
-		}
+		setAuthToken(localStorage.token);
 		try {
 			const res = await axios.get('/api/auth');
 			dispatch({
 				type: USER_LOADED,
 				payload: res.data,
 			});
+			console.log('object');
 		} catch (error) {
 			dispatch({ type: AUTH_ERROR });
 		}
@@ -46,13 +44,14 @@ const AuthState = (props) => {
 				type: REGISTER_SUCCESS,
 				payload: res.data,
 			});
+			loadUser();
 		} catch (error) {
 			if (error.response.data.errors) {
 				for (let message of error.response.data.errors) {
 					dispatch({
 						type: REGISTER_FAIL,
-						payload: message.msg
-					})
+						payload: message.msg,
+					});
 				}
 			}
 			dispatch({
@@ -63,13 +62,38 @@ const AuthState = (props) => {
 	};
 
 	// Login user
-	const login = async () => {
-		console.log('object');
+	const login = async (formData) => {
+		const config = {
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		};
+		try {
+			const res = await axios.post('/api/auth', formData, config);
+			dispatch({
+				type: LOGIN_SUCCESS,
+				payload: res.data,
+			});
+			loadUser();
+		} catch (error) {
+			if (error.response.data.errors) {
+				for (let message of error.response.data.errors) {
+					dispatch({
+						type: LOGIN_FAIL,
+						payload: message.msg,
+					});
+				}
+			}
+			dispatch({
+				type: LOGIN_FAIL,
+				payload: error.response.data.msg,
+			});
+		}
 	};
 
 	// Logout
 	const logout = () => {
-		console.log('object');
+		dispatch({ type: LOGOUT });
 	};
 
 	// Clear errors
