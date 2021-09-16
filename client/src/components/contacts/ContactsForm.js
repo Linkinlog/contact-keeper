@@ -8,7 +8,7 @@ export const ContactsForm = () => {
 		name: '',
 		email: '',
 		phone: '',
-		type: '',
+		type: 'personal',
 	});
 
 	useEffect(() => {
@@ -19,7 +19,7 @@ export const ContactsForm = () => {
 				name: '',
 				email: '',
 				phone: '',
-				type: '',
+				type: 'personal',
 			});
 		}
 	}, [contactContext, current]);
@@ -39,7 +39,7 @@ export const ContactsForm = () => {
 			name: '',
 			email: '',
 			phone: '',
-			type: '',
+			type: 'personal',
 		});
 	};
 
@@ -54,7 +54,7 @@ export const ContactsForm = () => {
 				<label className='form-label' htmlFor='name'>
 					Name :
 				</label>
-				<input type='text' className='form-control mb-3' placeholder='Name' name='name' id='name' value={name} onChange={onChange} />
+				<input type='text' className='form-control mb-3' placeholder='Name' name='name' id='name' value={name} onChange={onChange} required/>
 				<label className='form-label' htmlFor='email'>
 					E-Mail :
 				</label>
