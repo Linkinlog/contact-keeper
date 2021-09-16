@@ -58,7 +58,7 @@ export const ContactsForm = () => {
 				<label className='form-label' htmlFor='email'>
 					E-Mail :
 				</label>
-				<input type='email' id='email' className='form-control mb-3' placeholder='Email' name='email' value={email} onChange={onChange} />
+				<input type='email' id='email' className='form-control mb-3' placeholder='Email' name='email' value={email} onChange={onChange} required/>
 				<label className='form-label' htmlFor='phone'>
 					Phone :
 				</label>
