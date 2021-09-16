@@ -1,14 +1,46 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import AuthContext from '../../context/auth/authContext';
+import AlertContext from '../../context/alert/alertContext';
 
-export const Login = () => {
+export const Login = (props) => {
+	const authContext = useContext(AuthContext)
+	const alertContext = useContext(AlertContext)
+	const { isAuthenticated, clearErrors, error, login } = authContext;
+	const { setAlert } = alertContext;
+
+	useEffect(() => {
+		if(isAuthenticated) props.history.push('/')
+		// todo see if this is ever needed or if we can just loop all errors
+		// if (error === 'User already exists') {
+		// 	setAlert(error, 'danger');
+		// 	clearErrors();
+		// }
+		if (error && error.length !== 0) {
+			setAlert(error, 'danger');
+			clearErrors();
+		}
+		// eslint-disable-next-line
+	}, [error, isAuthenticated, props.history]);
+	
 	const [user, setUser] = useState({
-		name: '',
 		email: '',
 		password: '',
-		password2: '',
 	});
+	const { email, password } = user;
 
-	const { name, email, password, password2 } = user;
+	const onSubmit = e => {
+		e.preventDefault();
+		let err = false;
+		for(let field in user){
+			if(user[field] === ''){
+				setAlert(`Please fill in ${field}`, 'danger')
+				err = true
+			}
+		}
+		if(!err){
+			login(user)
+		}
+	}
 
 	const onChange = e => {
 		setUser({...user, [e.target.name]: e.target.value})
@@ -19,14 +51,12 @@ export const Login = () => {
 			<h1 className='text-center'>
 				Account <span className='text-primary'>Login</span>
 			</h1>
-			<form>
+			<form onSubmit={onSubmit}>
 				<label className='form-label' htmlFor='email'>Email Address</label>
-				<input type='email' name='email' value={email} className='form-control' onChange={onChange} />
-			</form>
-			<form>
+				<input type='email' name='email' value={email} className='form-control' onChange={onChange} required/>
 				<label className='form-label' htmlFor='password'>Password</label>
-				<input type='password' name='password' value={password} className='form-control mb-3' onChange={onChange} />
-				<input type="submit" value="Register" className='btn btn-primary' />
+				<input type='password' name='password' value={password} className='form-control mb-3' onChange={onChange} required/>
+				<input type="submit" value="Login" className='btn btn-primary' />
 			</form>
 		</div>
 	);
