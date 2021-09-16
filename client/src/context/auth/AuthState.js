@@ -25,7 +25,6 @@ const AuthState = (props) => {
 				type: USER_LOADED,
 				payload: res.data,
 			});
-			console.log('object');
 		} catch (error) {
 			dispatch({ type: AUTH_ERROR });
 		}
