@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express();
 const config = require('config')
-const port = config.get('port') || 3001;
+const port = config.get('port');
 const connectDB = require('./config/db')
 const path = require('path')
 
