@@ -4,8 +4,12 @@ import ContactContext from '../../context/contact/contactContext';
 
 export const ContactItem = ({ contact }) => {
 	const contactContext = useContext(ContactContext)
-	const { deleteContact, setCurrent } = contactContext
-	const { id, name, email, phone, type } = contact;
+	const { deleteContact, setCurrent, clearCurrent } = contactContext
+	const { _id, name, email, phone, type } = contact;
+	const onDelete = () => {
+		deleteContact(_id)
+		clearCurrent()
+	}
 	return (
 		<div>
 			<div className='card rounded-3 contact hotBorder mt-5'>
@@ -23,7 +27,7 @@ export const ContactItem = ({ contact }) => {
 					</ul>
 					<div className="d-grid text-center d-md-block">
 						<button onClick={() => setCurrent(contact)} className="btn btn-dark btn-sm">Edit</button>
-						<button onClick={() => deleteContact(id)} className="btn btn-danger btn-sm ms-2">Delete</button>
+						<button onClick={onDelete} className="btn btn-danger btn-sm ms-2">Delete</button>
 					</div>
 				</div>
 			</div>
