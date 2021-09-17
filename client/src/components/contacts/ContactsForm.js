@@ -35,12 +35,7 @@ export const ContactsForm = () => {
 		} else {
 			updateContact(contact);
 		}
-		setContact({
-			name: '',
-			email: '',
-			phone: '',
-			type: 'personal',
-		});
+		clearAll()
 	};
 
 	const clearAll = () => {
