@@ -5,3 +5,4 @@ default.json
 *debug.log*
 .DS_Store
 .VSCodeCounter/
+config/production.json
