@@ -7,10 +7,10 @@ export const ContactFilter = () => {
 	const text = useRef('');
 
 	useEffect(() => {
-		if(filtered === null){
-			text.current.value = ''
+		if (filtered === null) {
+			text.current.value = '';
 		}
-	}, [filtered])
+	}, [filtered]);
 
 	const onChange = (e) => {
 		if (text.current.value !== '') {
@@ -21,8 +21,11 @@ export const ContactFilter = () => {
 	};
 
 	return (
-		<form>
-			<input type='text' ref={text} placeholder='Filter contacts...' onChange={onChange} />
+		<form style={{background:'white'}} className='hotBorder rounded-3 p-4'>
+			<label className='form-label' htmlFor='filter'>
+				Filter contacts:
+			</label>
+			<input className='form-control' type='text' name='filter' ref={text} placeholder='Filter contacts...' onChange={onChange} />
 		</form>
 	);
 };
